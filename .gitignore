@@ -1,0 +1,19 @@
+# Ortam
+.venv/
+.env
+
+# MacOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Proje Bağımlılıkları (İçerdeki klasörde olsa da garanti olsun)
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Diğer kalıntılar
+*.log
