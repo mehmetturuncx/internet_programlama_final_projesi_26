@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { FaFolderOpen, FaGithub, FaTerminal, FaCode, FaRocket } from 'react-icons/fa';
 import './Projects.css';
 
+const PROJECTS = [
+  {
+    id: 'hackathon_26',
+    name: 'hackathon_26',
+    desc: 'Bir hackathon kapsamında geliştirilen, takım içi yenilikçi bir yazılım projesi çözümü.',
+    icon: <FaRocket />
+  },
+  {
+    id: 'episodd',
+    name: 'episodd',
+    desc: 'Dizi ve bölümleri takip etmek için geliştirilmiş, kullanıcı dostu bir arayüze sahip takip uygulaması.',
+    icon: <FaCode />
+  },
+  {
+    id: 'rebin-cli',
+    name: 'rebin cli',
+    desc: 'Terminal üzerinden çalışarak geliştirici süreçlerini hızlandıran komut satırı aracı (CLI).',
+    icon: <FaTerminal />
+  }
+];
+
 const Projects = ({ onClose }) => {
-  const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // GitHub kullanıcı adı
-  const GITHUB_USERNAME = 'mehmetturuncx';
-
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`)
-      .then((res) => {
-        if (!res.ok) throw new Error('GitHub API hatası');
-        return res.json();
-      })
-      .then((data) => {
-        setRepos(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  // Esc ile kapat
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose();
@@ -35,88 +33,37 @@ const Projects = ({ onClose }) => {
   }, [onClose]);
 
   return (
-    <div className="overlay-backdrop" onClick={onClose}>
-      <div className="overlay-panel" onClick={(e) => e.stopPropagation()}>
-        {/* Başlık */}
-        <div className="overlay-header">
-          <h2 className="overlay-title">
-            <span className="gh-icon">
-              <svg viewBox="0 0 16 16" width="22" height="22" fill="currentColor">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-              </svg>
-            </span>
-            GitHub Projelerim
+    <div className="projects-overlay-backdrop" onClick={onClose}>
+      <div className="projects-overlay-panel tv-effect" onClick={(e) => e.stopPropagation()}>
+        <div className="projects-header">
+          <h2 className="projects-title">
+            <FaFolderOpen className="projects-icon" style={{ color: '#d3c6a6' }} />
+            Projeler
           </h2>
-          <button className="overlay-close" onClick={onClose}>✕</button>
+          <button className="projects-close" onClick={onClose}>✕</button>
         </div>
 
-        {/* İçerik */}
-        <div className="overlay-content">
-          {loading && (
-            <div className="loading-state">
-              <div className="spinner" />
-              <p>Projeler yükleniyor...</p>
+        <div className="projects-content">
+          {PROJECTS.map((proj) => (
+            <div key={proj.id} className="project-card">
+              <h3 className="project-name">
+                <span style={{ color: '#5c6a72' }}>{proj.icon}</span>
+                {proj.name}
+              </h3>
+              <p className="project-desc">{proj.desc}</p>
             </div>
-          )}
+          ))}
 
-          {error && (
-            <div className="error-state">
-              <p>⚠️ {error}</p>
-              <p className="error-hint">GitHub API'sine erişilemedi.</p>
-            </div>
-          )}
-
-          {!loading && !error && repos.length === 0 && (
-            <div className="empty-state">
-              <p>Henüz proje bulunamadı.</p>
-            </div>
-          )}
-
-          {!loading && !error && repos.length > 0 && (
-            <div className="repos-grid">
-              {repos.map((repo) => (
-                <a
-                  key={repo.id}
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="repo-card"
-                >
-                  <div className="repo-name">
-                    <span className="repo-icon">📁</span> {repo.name}
-                  </div>
-                  {repo.description && (
-                    <p className="repo-desc">{repo.description}</p>
-                  )}
-                  <div className="repo-meta">
-                    {repo.language && (
-                      <span className="repo-lang">
-                        <span className="lang-dot" /> {repo.language}
-                      </span>
-                    )}
-                    {repo.stargazers_count > 0 && (
-                      <span className="repo-stars">⭐ {repo.stargazers_count}</span>
-                    )}
-                    {repo.forks_count > 0 && (
-                      <span className="repo-forks">🔀 {repo.forks_count}</span>
-                    )}
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Alt bilgi */}
-        <div className="overlay-footer">
-          <a
-            href={`https://github.com/${GITHUB_USERNAME}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="github-link"
-          >
-            github.com/{GITHUB_USERNAME} →
-          </a>
+          <div className="projects-footer">
+            <a 
+              href="https://github.com/mehmetturuncx" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="github-link-btn"
+            >
+              <FaGithub /> Tüm Projeler İçin GitHub
+            </a>
+          </div>
         </div>
       </div>
     </div>

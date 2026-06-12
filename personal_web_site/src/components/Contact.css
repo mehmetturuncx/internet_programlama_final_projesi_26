@@ -1,0 +1,231 @@
+/* Arka plan karartması */
+.contact-overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--backdrop-color);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Panelin kendisi - Pixel Art Everforest Light Tema */
+.contact-overlay-panel {
+  width: 90%;
+  max-width: 600px;
+  background: var(--bg-primary);
+  border: 4px solid var(--border-color);
+  box-shadow: 8px 8px 0px var(--shadow-color);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'VT323', monospace;
+  color: var(--border-color);
+}
+
+/* Televizyon Açılma Animasyonu */
+.tv-effect {
+  animation: tvTurnOn 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes tvTurnOn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Başlık Kısmi */
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 4px solid var(--border-color);
+  background: var(--bg-tertiary);
+}
+
+.contact-title {
+  margin: 0;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.contact-icon {
+  font-size: 1.8rem;
+}
+
+.contact-close {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  color: var(--border-color);
+  font-size: 1.2rem;
+  font-family: 'VT323', monospace;
+  cursor: pointer;
+  transition: all 0.1s;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 0px var(--shadow-color);
+}
+
+.contact-close:hover {
+  background: var(--accent-hover);
+  color: #fff;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--shadow-color);
+}
+
+/* YENİ HAKKIMDA İÇERİĞİ */
+.contact-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.about-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.about-name {
+  margin: 0;
+  font-size: 2.2rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.about-school, .about-dept, .about-year {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+.about-photo-wrapper {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border: 4px solid var(--border-color);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+}
+
+.about-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto; /* Fotoğrafın çok bozulmaması için, istenirse pixelated yapılabilir */
+}
+
+.about-bio {
+  background: var(--bg-secondary);
+  border: 3px solid var(--border-color);
+  padding: 1.2rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+}
+
+.about-bio p {
+  margin: 0;
+}
+
+.about-socials-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background: var(--bg-primary);
+  color: var(--border-color);
+  border: 3px solid var(--border-color);
+  padding: 0.8rem;
+  font-size: 1.5rem;
+  text-decoration: none;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: all 0.1s;
+}
+
+.social-btn:hover {
+  background: var(--bg-tertiary);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow-color);
+}
+
+.about-email-box {
+  display: flex;
+  align-items: center;
+  background: var(--bg-primary);
+  border: 3px solid var(--border-color);
+  padding: 0.8rem 1.2rem;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  gap: 1rem;
+}
+
+.email-icon {
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.email-text {
+  flex: 1;
+  font-size: 1.5rem;
+}
+
+.copy-btn {
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  color: var(--border-color);
+  font-family: 'VT323', monospace;
+  font-size: 1.4rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 3px 3px 0px var(--shadow-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn:hover {
+  background: #d3c6a6;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--shadow-color);
+}
+
+.copy-btn:active {
+  box-shadow: 0px 0px 0px transparent;
+  transform: translate(5px, 5px);
+}

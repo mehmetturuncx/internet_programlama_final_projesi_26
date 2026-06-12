@@ -14,3 +14,29 @@ body {
 .handwriting {
   font-family: 'Caveat', cursive;
 }
+
+:root {
+  --bg-primary: #fdf6e3;
+  --bg-secondary: #f4f0d9;
+  --bg-tertiary: #eadaad;
+  --border-color: #5c6a72;
+  --text-primary: #5c6a72;
+  --text-secondary: #4a555b;
+  --accent: #8da101;
+  --accent-hover: #e67e80;
+  --shadow-color: rgba(92, 106, 114, 0.4);
+  --backdrop-color: rgba(211, 198, 170, 0.6);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #2d353b;
+  --bg-secondary: #343f44;
+  --bg-tertiary: #475258;
+  --border-color: #d3c6a6;
+  --text-primary: #d3c6a6;
+  --text-secondary: #a7c080;
+  --accent: #a7c080;
+  --accent-hover: #e67e80;
+  --shadow-color: rgba(45, 53, 59, 0.8);
+  --backdrop-color: rgba(30, 35, 38, 0.7);
+}

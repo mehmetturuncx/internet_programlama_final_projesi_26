@@ -1,230 +1,141 @@
-/* Arka plan karartması ve bulanıklık (Glassmorphism) */
-.overlay-backdrop {
+/* Arka plan karartması */
+.projects-overlay-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
+  background: var(--backdrop-color);
+  backdrop-filter: blur(4px);
   z-index: 200;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.4s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Panelin kendisi */
-.overlay-panel {
+/* Panelin kendisi - Pixel Art Everforest Light Tema */
+.projects-overlay-panel {
   width: 90%;
-  max-width: 900px;
-  height: 80vh;
-  background: rgba(10, 15, 10, 0.85); /* Hafif yeşilimsi siyah */
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.15), inset 0 0 20px rgba(0, 255, 0, 0.05);
+  max-width: 600px;
+  background: var(--bg-primary);
+  border: 4px solid var(--border-color);
+  box-shadow: 8px 8px 0px var(--shadow-color);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: 'Inter', sans-serif;
-  color: #e0e0e0;
+  font-family: 'VT323', monospace;
+  color: var(--border-color);
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Başlık Kısmi */
-.overlay-header {
+/* Başlık */
+.projects-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-  background: rgba(0, 255, 0, 0.05);
+  padding: 1rem 1.5rem;
+  border-bottom: 4px solid var(--border-color);
+  background: var(--bg-tertiary);
 }
 
-.overlay-title {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
+.projects-title {
   margin: 0;
-  font-size: 1.5rem;
-  color: #0f0;
-  font-family: 'Courier New', Courier, monospace;
-  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
-}
-
-.gh-icon {
+  font-size: 2rem;
   display: flex;
   align-items: center;
-  color: #0f0;
+  gap: 12px;
+  color: var(--text-secondary);
 }
 
-.overlay-close {
-  background: transparent;
-  border: none;
-  color: #888;
-  font-size: 1.5rem;
+.projects-close {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  color: var(--border-color);
+  font-size: 1.2rem;
+  font-family: 'VT323', monospace;
   cursor: pointer;
-  transition: all 0.2s;
-  width: 32px;
-  height: 32px;
+  transition: all 0.1s;
+  width: 36px;
+  height: 36px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  justify-content: center;
+  box-shadow: 3px 3px 0px var(--shadow-color);
 }
 
-.overlay-close:hover {
-  color: #ff3c3c;
-  background: rgba(255, 60, 60, 0.1);
+.projects-close:hover {
+  background: var(--accent-hover);
+  color: #fff;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--shadow-color);
 }
 
-/* İçerik Alanı */
-.overlay-content {
-  flex: 1;
-  overflow-y: auto;
+/* İçerik */
+.projects-content {
   padding: 2rem;
-  /* Scrollbar Stili */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 255, 0, 0.5) transparent;
-}
-
-.overlay-content::-webkit-scrollbar {
-  width: 6px;
-}
-.overlay-content::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 0, 0.5);
-  border-radius: 3px;
-}
-
-/* Yükleniyor / Hata / Boş Durumları */
-.loading-state, .error-state, .empty-state {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #aaa;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(0, 255, 0, 0.2);
-  border-top-color: #0f0;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.error-state { color: #ff5555; }
-.error-hint { font-size: 0.9rem; color: #888; margin-top: 0.5rem; }
-
-/* Grid Düzeni */
-.repos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
-/* Proje Kartı */
-.repo-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+.project-card {
+  background: var(--bg-secondary);
+  border: 3px solid var(--border-color);
   padding: 1.2rem;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s ease;
+  box-shadow: 4px 4px 0px var(--shadow-color);
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.repo-card:hover {
-  background: rgba(0, 255, 0, 0.05);
-  border-color: rgba(0, 255, 0, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 255, 0, 0.1);
-}
-
-.repo-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #0f0;
-  margin-bottom: 0.6rem;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
+  transition: all 0.1s;
+  cursor: default;
 }
 
-.repo-desc {
-  font-size: 0.85rem;
-  color: #999;
-  margin-bottom: 1rem;
-  line-height: 1.4;
-  flex: 1; /* Alttaki metayı aşağı iter */
+.project-card:hover {
+  background: var(--bg-tertiary);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow-color);
 }
 
-.repo-meta {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.8rem;
-  color: #777;
-}
-
-.repo-lang {
+.project-name {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--accent);
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 8px;
 }
 
-.lang-dot {
-  width: 8px;
-  height: 8px;
-  background: #0f0;
-  border-radius: 50%;
-  display: inline-block;
+.project-desc {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
 }
 
-/* Alt Bilgi */
-.overlay-footer {
-  padding: 1rem 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  text-align: right;
-  background: rgba(0, 0, 0, 0.2);
+.projects-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
-.github-link {
-  color: #0f0;
+.github-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--border-color);
+  color: var(--bg-primary);
+  padding: 0.8rem 1.5rem;
   text-decoration: none;
-  font-size: 0.9rem;
-  font-family: 'Courier New', Courier, monospace;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+  font-size: 1.5rem;
+  border: 3px solid var(--text-secondary);
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: all 0.1s;
 }
 
-.github-link:hover {
-  opacity: 1;
-  text-decoration: underline;
+.github-link-btn:hover {
+  background: var(--text-secondary);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow-color);
 }

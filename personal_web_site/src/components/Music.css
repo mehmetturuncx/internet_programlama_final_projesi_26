@@ -1,0 +1,225 @@
+/* Arka plan karartması */
+.music-overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--backdrop-color);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Panelin kendisi - Pixel Art Everforest Light */
+.music-overlay-panel {
+  width: 90%;
+  max-width: 600px;
+  height: 85vh;
+  background: var(--bg-primary);
+  border: 4px solid var(--border-color);
+  box-shadow: 8px 8px 0px var(--shadow-color);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'VT323', monospace;
+  color: var(--border-color);
+}
+
+/* Animasyon */
+.tv-effect {
+  animation: tvTurnOn 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Başlık Kısmi */
+.music-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 4px solid var(--border-color);
+  background: var(--bg-tertiary);
+}
+
+.music-title {
+  margin: 0;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.music-icon {
+  font-size: 1.8rem;
+}
+
+.music-close {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  color: var(--border-color);
+  font-size: 1.2rem;
+  font-family: 'VT323', monospace;
+  cursor: pointer;
+  transition: all 0.1s;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 0px var(--shadow-color);
+}
+
+.music-close:hover {
+  background: var(--accent-hover);
+  color: #fff;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--shadow-color);
+}
+
+/* İçerik Alanı */
+.music-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #a7c080 var(--bg-tertiary);
+}
+
+.music-content::-webkit-scrollbar {
+  width: 12px;
+}
+.music-content::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-left: 2px solid var(--border-color);
+}
+.music-content::-webkit-scrollbar-thumb {
+  background-color: #a7c080;
+  border: 2px solid var(--border-color);
+}
+
+.music-intro {
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  color: var(--border-color);
+  text-align: center;
+}
+
+/* Liste */
+.music-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.music-card {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 3px solid var(--border-color);
+  padding: 0.8rem 1rem;
+  transition: all 0.1s;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+}
+
+.music-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow-color);
+  background: var(--bg-tertiary);
+}
+
+.music-cover-placeholder {
+  width: 48px;
+  height: 48px;
+  background: #d3c6aa;
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  margin-right: 1rem;
+}
+
+.music-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.music-name {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.music-artist {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--border-color);
+}
+
+.apple-music-btn {
+  background: var(--accent-hover);
+  border: 2px solid var(--border-color);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: all 0.1s;
+  box-shadow: 3px 3px 0px var(--shadow-color);
+}
+
+.apple-music-btn:hover {
+  background: #df69ba;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--shadow-color);
+}
+
+/* Alt Bilgi */
+.music-footer {
+  padding: 1rem 1.5rem;
+  background: var(--bg-tertiary);
+  border-top: 4px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+}
+
+.playlist-main-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  padding: 0.8rem 1.5rem;
+  border: 3px solid var(--border-color);
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: all 0.1s;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+}
+
+.playlist-main-btn:hover {
+  background: #a7c080;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow-color);
+  color: var(--text-secondary);
+}
+
+.playlist-main-btn .apple-icon {
+  font-size: 1.6rem;
+}
