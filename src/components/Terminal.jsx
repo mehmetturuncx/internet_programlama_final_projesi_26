@@ -23,63 +23,61 @@ const Terminal = ({ onClose }) => {
   }, [onClose]);
 
   const handleCommand = (cmd) => {
-    const trimmed = cmd.trim().toLowerCase();
-    if (trimmed === '') return;
+    const parts = cmd.trim().split(' ').filter(Boolean);
+    if (parts.length === 0) return;
 
+    const command = parts[0].toLowerCase();
+    const args = parts.slice(1);
     let response = null;
 
-    switch (trimmed) {
+    switch (command) {
       case 'help':
         response = (
           <div>
             Kullanılabilir komutlar:
             <br />&nbsp;&nbsp;help&nbsp;&nbsp;&nbsp;&nbsp;- Bu mesajı gösterir
-            <br />&nbsp;&nbsp;whoami&nbsp;&nbsp;- Benim hakkımda kısa bilgi
-            <br />&nbsp;&nbsp;github&nbsp;&nbsp;- Favori projelerimi ve GitHub linkimi gösterir
+            <br />&nbsp;&nbsp;ls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Dosyaları listeler
+            <br />&nbsp;&nbsp;cat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Dosya içeriğini okur (Örn: cat projects)
             <br />&nbsp;&nbsp;clear&nbsp;&nbsp;&nbsp;- Terminal ekranını temizler
           </div>
         );
         break;
-      case 'whoami':
-        response = 'Merhaba, ben Mehmet. İnternet Programlama Final Projesi için geliştirdiğim bu interaktif odaya hoş geldin!';
+      case 'ls':
+        response = (
+          <div style={{ color: 'var(--accent)' }}>
+            about_me&nbsp;&nbsp;&nbsp;about_this_project&nbsp;&nbsp;&nbsp;projects
+          </div>
+        );
         break;
-      case 'github':
-        setHistory((prev) => [
-          ...prev,
-          { type: 'input', content: `guest@dijital-oda:~$ ${cmd}` },
-          { type: 'system', content: 'Projeler GitHub\'dan çekiliyor...' }
-        ]);
-
-        fetch('https://api.github.com/users/mehmetturuncx/repos?sort=updated&per_page=20')
-          .then(res => {
-            if (!res.ok) throw new Error('API Hatası');
-            return res.json();
-          })
-          .then(data => {
-            const projectsList = data.map(repo => `> ${repo.name}`).join('\n');
-            setHistory((prev) => [
-              ...prev,
-              { type: 'output', content: (
-                <div>
-                  Projelerim:
-                  <pre className="terminal-pre">{projectsList}</pre>
-                  Tüm projelerimi detaylı incelemek için: <a href="https://github.com/mehmetturuncx" target="_blank" rel="noopener noreferrer" className="terminal-link">github.com/mehmetturuncx</a>
-                </div>
-              )}
-            ]);
-          })
-          .catch(() => {
-            setHistory((prev) => [
-              ...prev,
-              { type: 'output', content: 'Projeler çekilirken bir hata oluştu. Lütfen github.com/mehmetturuncx adresine gidin.' }
-            ]);
-          });
-        return; 
+      case 'cat':
+        if (args.length === 0) {
+          response = 'cat: dosya adı belirtilmeli';
+        } else if (args[0] === 'projects') {
+          response = (
+            <div>
+              <pre className="terminal-pre" style={{ fontFamily: "'VT323', monospace", margin: 0, whiteSpace: 'pre-wrap' }}>
+{`> hackathon_26
+  Bir hackathon kapsamında geliştirilen, takım içi yenilikçi bir yazılım projesi çözümü.
+> episodd
+  Dizi ve bölümleri takip etmek için geliştirilmiş, kullanıcı dostu bir arayüze sahip takip uygulaması.
+> rebin cli
+  Terminal üzerinden çalışarak geliştirici süreçlerini hızlandıran komut satırı aracı (CLI).`}
+              </pre>
+            </div>
+          );
+        } else if (args[0] === 'about_me') {
+          response = "Her gün saat 8.00-8.30 arası uyanırım. En sevdiğim müzik türü alternatif rock'dır. Çıkmış Call of Duty oyunlarının %85'ini bitirdim. En sevdiğim 3 dizi: Game of Thrones, Dexter, Better Call Saul.";
+        } else if (args[0] === 'about_this_project') {
+          response = "Ücretsiz bir wallpaper bulup etklişeme geçilmesini istediğim nesneleri tek tek photoshop ile kırptım. Her nesne için farklı bir özellik (bilgisayar için terminal gibi) buldum. React ve Vite kullanarak projeyi oluşturdum. Yapay zeka yardımı için Antigravity CLI üzerinden Gemini 3.1 Pro ve Claude Opus 4.6 kullandım.";
+        } else {
+          response = `cat: ${args[0]}: Böyle bir dosya ya da dizin yok`;
+        }
+        break;
       case 'clear':
         setHistory([]);
         return;
       default:
-        response = `Komut bulunamadı: ${trimmed}. "help" yazarak geçerli komutları görebilirsiniz.`;
+        response = `Komut bulunamadı: ${command}. "help" yazarak geçerli komutları görebilirsiniz.`;
     }
 
     setHistory((prev) => [
