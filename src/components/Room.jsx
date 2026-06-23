@@ -21,7 +21,7 @@ const ITEMS = [
     id: 'bookshelf',
     src: 'assets/bookshelf.png',
     label: 'Filmler',
-    desc: 'Letterboxd Filmleri',
+    desc: 'Son İzlediğim Filmler',
     zIndex: 11,
     hitbox: { top: '2%', left: '0%', width: '9%', height: '54%' },
     origin: '4.5% 29%',
@@ -224,7 +224,7 @@ const Room = () => {
         {/* Partiküller: mask-image sayesinde SADECE pencerenin olduğu kısımda görünürler! */}
         <div className="window-particles-container">
           {/* Toz Zerreleri */}
-          {Array.from({ length: 35 }).map((_, i) => {
+          {React.useMemo(() => Array.from({ length: 35 }).map((_, i) => {
             const size = Math.random() * 6 + 4; // 4-10px (Daha belirgin)
             return (
               <div
@@ -240,7 +240,7 @@ const Room = () => {
                 }}
               />
             );
-          })}
+          }), [])}
         </div>
 
         {ITEMS.map((item) => (

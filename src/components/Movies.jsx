@@ -21,11 +21,10 @@ const Movies = ({ onClose }) => {
       .then((data) => {
         if (data.status !== 'ok') throw new Error('RSS ayrıştırılamadı');
         
-        const highRatedItems = data.items.filter(item => 
-          item.title.includes('★★★★') || item.title.includes('★★★★★')
-        );
+        // Sadece son 8 filmi alalım
+        const recentItems = data.items.slice(0, 8);
 
-        const parsedMovies = highRatedItems.map(item => {
+        const parsedMovies = recentItems.map(item => {
           const imgMatch = item.description.match(/src="([^"]+)"/);
           const posterUrl = imgMatch ? imgMatch[1] : null;
           
@@ -60,7 +59,7 @@ const Movies = ({ onClose }) => {
         <div className="movies-header">
           <h2 className="movies-title">
             <FaFilm className="movie-icon" />
-            Favori Filmlerim
+            Son İzlediğim Filmler
           </h2>
           <button className="movies-close" onClick={onClose}>✕</button>
         </div>
@@ -110,12 +109,12 @@ const Movies = ({ onClose }) => {
 
         <div className="movies-footer">
           <a
-            href={`https://letterboxd.com/${LETTERBOXD_USERNAME}/films/ratings/by/entry-rating/`}
+            href={`https://letterboxd.com/${LETTERBOXD_USERNAME}/films/`}
             target="_blank"
             rel="noopener noreferrer"
             className="letterboxd-link"
           >
-            Tüm yüksek puanlı filmlerimi incele →
+            Son izlediğim tüm filmleri incele →
           </a>
         </div>
       </div>
