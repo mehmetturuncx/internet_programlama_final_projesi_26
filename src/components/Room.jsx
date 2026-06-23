@@ -5,7 +5,8 @@ import Movies from './Movies';
 import Music from './Music';
 import Contact from './Contact';
 import Projects from './Projects';
-import { FaLightbulb, FaPlay, FaPause, FaMusic, FaMoon, FaSun } from 'react-icons/fa';
+import Achievements from './Achievements';
+import { FaLightbulb, FaPlay, FaPause, FaMusic, FaMoon, FaSun, FaTrophy } from 'react-icons/fa';
 
 const ITEMS = [
   {
@@ -64,6 +65,14 @@ const ITEMS = [
   },
 ];
 
+const ACHIEVEMENTS_LIST = [
+  { id: 'music', title: 'DJ Mehmet', desc: 'Lofi radyoyu açtın.' },
+  { id: 'snake', title: 'Burası Nokia 3310 mu?', desc: 'Terminalde yılan oyunu oynadın.' },
+  { id: 'crash', title: 'Pek iyi bir fikir sayılmaz değil mi?', desc: 'Terminali çökerttin.' },
+  { id: 'night', title: 'Gece Kuşu', desc: 'Gece modunu aktif ettin.' },
+  { id: 'terminal', title: 'Hackerman', desc: 'Terminali ilk kez açtın.' }
+];
+
 let audioCtx = null;
 
 const playHoverSound = () => {
@@ -105,11 +114,29 @@ const Room = () => {
   const [musicOpen, setMusicOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [projectsOpen, setProjectsOpen] = useState(false);
+  const [achievementsOpen, setAchievementsOpen] = useState(false);
   const [showHints, setShowHints] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isNight, setIsNight] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [terminalCrashed, setTerminalCrashed] = useState(false);
+  
+  const [unlockedAchievements, setUnlockedAchievements] = useState([]);
+  const [latestAchievement, setLatestAchievement] = useState(null);
+
   const audioRef = useRef(null);
+
+  const unlockAchievement = useCallback((id) => {
+    setUnlockedAchievements(prev => {
+      if (!prev.includes(id)) {
+        const ach = ACHIEVEMENTS_LIST.find(a => a.id === id);
+        setLatestAchievement(ach);
+        setTimeout(() => setLatestAchievement(null), 4000);
+        return [...prev, id];
+      }
+      return prev;
+    });
+  }, []);
 
   const toggleRadio = (e) => {
     e.stopPropagation();
@@ -119,6 +146,7 @@ const Room = () => {
       } else {
         audioRef.current.volume = 0.15; // hafif arka plan müziği
         audioRef.current.play().catch(err => console.error("Müzik başlatılamadı:", err));
+        unlockAchievement('music');
       }
       setIsPlaying(!isPlaying);
     }
@@ -152,6 +180,7 @@ const Room = () => {
     if (id === 'computer') {
       setTerminalOpen(true);
       setActivePanel(null);
+      unlockAchievement('terminal');
     } else if (id === 'bookshelf') {
       setMoviesOpen(true);
       setActivePanel(null);
@@ -204,14 +233,22 @@ const Room = () => {
           <FaLightbulb style={{ marginRight: '5px' }} /> İpucu
         </button>
 
-        {/* Radyo Butonu (Tıklandığında toggleRadio yerine müzik modunu çağırıyordu, bunu düzelttik) */}
-        {/* Not: Radyo fonksiyonelliğini önceden hoparlöre bağlamıştık */}
+        <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px', zIndex: 100 }}>
+          {/* Başarımlar Butonu */}
+          <button className="theme-toggle-btn" onClick={(e) => { e.stopPropagation(); setAchievementsOpen(true); }}>
+            <FaTrophy style={{ color: '#d4af37' }} />
+          </button>
 
-        {/* Gece/Gündüz Teması Değiştirme Butonu */}
-        <button className="theme-toggle-btn" onClick={(e) => { e.stopPropagation(); setIsNight(!isNight); }}>
-          {isNight ? <FaSun style={{ color: '#eadaad' }} /> : <FaMoon style={{ color: '#fdf6e3' }} />}
-          <span style={{ marginLeft: '8px' }}>{isNight ? 'Gündüz' : 'Gece'}</span>
-        </button>
+          {/* Gece/Gündüz Teması Değiştirme Butonu */}
+          <button className="theme-toggle-btn" onClick={(e) => { 
+            e.stopPropagation(); 
+            setIsNight(!isNight); 
+            if (!isNight) unlockAchievement('night');
+          }}>
+            {isNight ? <FaSun style={{ color: '#eadaad' }} /> : <FaMoon style={{ color: '#fdf6e3' }} />}
+            <span style={{ marginLeft: '8px' }}>{isNight ? 'Gündüz' : 'Gece'}</span>
+          </button>
+        </div>
 
         {/* Arka plan */}
         <img src={isNight ? "night.png" : "background.png"} alt="Room Background" className="room-bg" draggable="false" />
@@ -277,12 +314,31 @@ const Room = () => {
         )}
       </div>
 
-      {terminalOpen && <Terminal onClose={() => setTerminalOpen(false)} />}
+      {terminalOpen && (
+        <Terminal 
+          onClose={() => setTerminalOpen(false)} 
+          onUnlockAchievement={unlockAchievement}
+          crashed={terminalCrashed}
+          onCrash={() => setTerminalCrashed(true)}
+        />
+      )}
       {moviesOpen && <Movies onClose={() => setMoviesOpen(false)} />}
       {musicOpen && <Music onClose={() => setMusicOpen(false)} />}
       {contactOpen && <Contact onClose={() => setContactOpen(false)} />}
       {projectsOpen && <Projects onClose={() => setProjectsOpen(false)} />}
+      {achievementsOpen && <Achievements onClose={() => setAchievementsOpen(false)} unlocked={unlockedAchievements} achievementsList={ACHIEVEMENTS_LIST} />}
       
+      {/* Toast Bildirimi */}
+      {latestAchievement && (
+        <div className="achievement-toast">
+          <FaTrophy className="toast-icon" />
+          <div className="toast-info">
+            <h4>Başarım Kazanıldı</h4>
+            <p>{latestAchievement.title}</p>
+          </div>
+        </div>
+      )}
+
       {/* Yerel HTML5 Müzik Çalar */}
       <audio ref={audioRef} src="assets/lofi-bg.mp3" loop preload="auto" />
     </>
