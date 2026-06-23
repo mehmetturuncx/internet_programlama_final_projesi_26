@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Snake.css';
 
 const GRID_SIZE = { x: 20, y: 15 };
@@ -7,110 +7,114 @@ const INITIAL_DIRECTION = { x: 1, y: 0 };
 const GAME_SPEED = 150;
 
 const SnakeGame = ({ onExit }) => {
-  const [snake, setSnake] = useState(INITIAL_SNAKE);
-  const [direction, setDirection] = useState(INITIAL_DIRECTION);
-  const [food, setFood] = useState({ x: 5, y: 5 });
+  const snakeRef = useRef(INITIAL_SNAKE);
+  const directionRef = useRef(INITIAL_DIRECTION);
+  const lastProcessedDirectionRef = useRef(INITIAL_DIRECTION);
+  const foodRef = useRef({ x: 5, y: 5 });
+
+  const [renderTrigger, setRenderTrigger] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const gameRef = useRef(null);
 
-  const generateFood = useCallback(() => {
+  const generateFood = () => {
     let newFood;
     while (true) {
       newFood = {
         x: Math.floor(Math.random() * GRID_SIZE.x),
         y: Math.floor(Math.random() * GRID_SIZE.y)
       };
-      // Yılanın üstüne gelmemesi için kontrol
-      if (!snake.some(segment => segment.x === newFood.x && segment.y === newFood.y)) {
+      if (!snakeRef.current.some(s => s.x === newFood.x && s.y === newFood.y)) {
         break;
       }
     }
-    setFood(newFood);
-  }, [snake]);
-
-  const resetGame = () => {
-    setSnake(INITIAL_SNAKE);
-    setDirection(INITIAL_DIRECTION);
-    setScore(0);
-    setGameOver(false);
-    generateFood();
-    if (gameRef.current) gameRef.current.focus();
+    foodRef.current = newFood;
   };
 
   useEffect(() => {
     generateFood();
+    setRenderTrigger(v => v + 1);
   }, []);
 
   useEffect(() => {
     if (gameOver) return;
 
-    const moveSnake = () => {
-      setSnake(prevSnake => {
-        const newSnake = [...prevSnake];
-        const head = { ...newSnake[0] };
-        
-        head.x += direction.x;
-        head.y += direction.y;
+    const interval = setInterval(() => {
+      const prevSnake = snakeRef.current;
+      const head = { ...prevSnake[0] };
+      const currentDir = directionRef.current;
+      lastProcessedDirectionRef.current = currentDir;
+      
+      head.x += currentDir.x;
+      head.y += currentDir.y;
 
-        // Duvara çarpma kontrolü
-        if (head.x < 0 || head.x >= GRID_SIZE.x || head.y < 0 || head.y >= GRID_SIZE.y) {
-          setGameOver(true);
-          return prevSnake;
-        }
+      // Duvara çarpma
+      if (head.x < 0 || head.x >= GRID_SIZE.x || head.y < 0 || head.y >= GRID_SIZE.y) {
+        setGameOver(true);
+        return;
+      }
 
-        // Kendine çarpma kontrolü
-        if (newSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
-          setGameOver(true);
-          return prevSnake;
-        }
+      // Kendine çarpma
+      if (prevSnake.some(s => s.x === head.x && s.y === head.y)) {
+        setGameOver(true);
+        return;
+      }
 
-        newSnake.unshift(head);
+      const newSnake = [head, ...prevSnake];
 
-        // Yemek yeme kontrolü
-        if (head.x === food.x && head.y === food.y) {
-          setScore(s => s + 10);
-          generateFood();
-        } else {
-          newSnake.pop();
-        }
+      // Yemek yeme
+      if (head.x === foodRef.current.x && head.y === foodRef.current.y) {
+        setScore(s => s + 10);
+        generateFood();
+      } else {
+        newSnake.pop();
+      }
 
-        return newSnake;
-      });
-    };
+      snakeRef.current = newSnake;
+      setRenderTrigger(v => v + 1);
+    }, GAME_SPEED);
 
-    const interval = setInterval(moveSnake, GAME_SPEED);
     return () => clearInterval(interval);
-  }, [direction, food, gameOver, generateFood]);
+  }, [gameOver]);
 
   const handleKeyDown = (e) => {
     e.preventDefault();
     if (gameOver) {
-      if (e.key === 'Enter') resetGame();
+      if (e.key === 'Enter') {
+        snakeRef.current = INITIAL_SNAKE;
+        directionRef.current = INITIAL_DIRECTION;
+        lastProcessedDirectionRef.current = INITIAL_DIRECTION;
+        setScore(0);
+        setGameOver(false);
+        generateFood();
+        setRenderTrigger(v => v + 1);
+      }
       if (e.key === 'Escape') onExit();
       return;
     }
+
+    const lastDir = lastProcessedDirectionRef.current;
 
     switch (e.key) {
       case 'ArrowUp':
       case 'w':
       case 'W':
-        if (direction.y !== 1) setDirection({ x: 0, y: -1 });
+        if (lastDir.y !== 1) directionRef.current = { x: 0, y: -1 };
         break;
       case 'ArrowDown':
       case 's':
       case 'S':
-        if (direction.y !== -1) setDirection({ x: 0, y: 1 });
+        if (lastDir.y !== -1) directionRef.current = { x: 0, y: 1 };
         break;
       case 'ArrowLeft':
       case 'a':
       case 'A':
-        if (direction.x !== 1) setDirection({ x: -1, y: 0 });
+        if (lastDir.x !== 1) directionRef.current = { x: -1, y: 0 };
         break;
       case 'ArrowRight':
       case 'd':
       case 'D':
-        if (direction.x !== -1) setDirection({ x: 1, y: 0 });
+        if (lastDir.x !== -1) directionRef.current = { x: 1, y: 0 };
         break;
       case 'Escape':
         onExit();
@@ -119,6 +123,9 @@ const SnakeGame = ({ onExit }) => {
         break;
     }
   };
+
+  const snake = snakeRef.current;
+  const food = foodRef.current;
 
   return (
     <div 
