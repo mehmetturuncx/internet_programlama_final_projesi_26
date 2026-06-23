@@ -197,6 +197,7 @@ const Terminal = ({ onClose, onUnlockAchievement, crashed, onCrash }) => {
           <p style={{ marginTop: '20px' }}>A fatal exception 0E has occurred at 0028:C0011E36 in VXD VMM(01) + 00010E36. The current application will be terminated.</p>
           <p>* Press CTRL+ALT+DEL again to restart your computer. You will lose any unsaved information in all applications.</p>
           <p style={{ textAlign: 'center', marginTop: '40px' }}>Sistem çöktü. Sayfayı yenilemeniz gerekiyor.</p>
+          <p style={{ textAlign: 'center', marginTop: '10px', color: '#AAAAAA' }}>Bu pencereyi ESC ile kapatabilirsiniz.</p>
         </div>
       </div>
     );

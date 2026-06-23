@@ -5,8 +5,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--backdrop-color);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.75);
+  /* backdrop-filter removed for performance (prevents typing/game lag) */
   z-index: 200;
   display: flex;
   justify-content: center;
