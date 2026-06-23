@@ -6,6 +6,7 @@ import Music from './Music';
 import Contact from './Contact';
 import Projects from './Projects';
 import Achievements from './Achievements';
+import Welcome from './Welcome';
 import { FaLightbulb, FaPlay, FaPause, FaMusic, FaMoon, FaSun, FaTrophy } from 'react-icons/fa';
 
 const ITEMS = [
@@ -69,7 +70,7 @@ const ACHIEVEMENTS_LIST = [
   { id: 'music', title: 'Yeni nesil ne dinliyor ya?', desc: 'Lofi radyoyu açtın.' },
   { id: 'snake', title: 'Burası Nokia 3310 mu?', desc: 'Terminalde yılan oyunu oynadın.' },
   { id: 'crash', title: 'Pek iyi bir fikir sayılmaz değil mi?', desc: 'Terminale sudo rm -rf / yazdın.' },
-  { id: 'night', title: 'Gece Kuşu', desc: 'Gece modunu aktif ettin.' },
+  { id: 'night', title: 'Göz sağlığı önemli tabii.', desc: 'Gece modunu aktif ettin.' },
   { id: 'terminal', title: 'Who Am I?', desc: 'Terminali ilk kez açtın.' },
   { id: 'hint', title: 'Bilmemek değil, ipucuna basmamak ayıptır.', desc: 'İpucu butonunu kullandın.' }
 ];
@@ -121,6 +122,7 @@ const Room = () => {
   const [isNight, setIsNight] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [terminalCrashed, setTerminalCrashed] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
   const [latestAchievement, setLatestAchievement] = useState(null);
@@ -329,6 +331,7 @@ const Room = () => {
       {contactOpen && <Contact onClose={() => setContactOpen(false)} />}
       {projectsOpen && <Projects onClose={() => setProjectsOpen(false)} />}
       {achievementsOpen && <Achievements onClose={() => setAchievementsOpen(false)} unlocked={unlockedAchievements} achievementsList={ACHIEVEMENTS_LIST} />}
+      {showWelcome && <Welcome onClose={() => setShowWelcome(false)} />}
       
       {/* Toast Bildirimi */}
       {latestAchievement && (
