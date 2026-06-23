@@ -70,7 +70,8 @@ const ACHIEVEMENTS_LIST = [
   { id: 'snake', title: 'Burası Nokia 3310 mu?', desc: 'Terminalde yılan oyunu oynadın.' },
   { id: 'crash', title: 'Pek iyi bir fikir sayılmaz değil mi?', desc: 'Terminale sudo rm -rf / yazdın.' },
   { id: 'night', title: 'Gece Kuşu', desc: 'Gece modunu aktif ettin.' },
-  { id: 'terminal', title: 'Who Am I?', desc: 'Terminali ilk kez açtın.' }
+  { id: 'terminal', title: 'Who Am I?', desc: 'Terminali ilk kez açtın.' },
+  { id: 'hint', title: 'Bilmemek değil, ipucuna basmamak ayıptır.', desc: 'İpucu butonunu kullandın.' }
 ];
 
 let audioCtx = null;
@@ -131,7 +132,7 @@ const Room = () => {
       if (!prev.includes(id)) {
         const ach = ACHIEVEMENTS_LIST.find(a => a.id === id);
         setLatestAchievement(ach);
-        setTimeout(() => setLatestAchievement(null), 4000);
+        setTimeout(() => setLatestAchievement(null), 6000);
         return [...prev, id];
       }
       return prev;
@@ -154,6 +155,7 @@ const Room = () => {
 
   const handleHintClick = (e) => {
     e.stopPropagation();
+    unlockAchievement('hint');
     if (showHints) return; // Zaten yanıyorsa tekrar tetikleme
     setShowHints(true);
     setTimeout(() => {
