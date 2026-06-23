@@ -39,7 +39,7 @@ const Contact = ({ onClose }) => {
               <p className="about-year">2. Sınıf</p>
             </div>
             <div className="about-photo-wrapper">
-              <img src="/me.jpeg" alt="Mehmet Turunç" className="about-photo" />
+              <img src="me.jpeg" alt="Mehmet Turunç" className="about-photo" />
             </div>
           </div>
 

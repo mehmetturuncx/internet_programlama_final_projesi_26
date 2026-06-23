@@ -10,7 +10,7 @@ import { FaLightbulb, FaPlay, FaPause, FaMusic, FaMoon, FaSun } from 'react-icon
 const ITEMS = [
   {
     id: 'computer',
-    src: '/assets/computer.png',
+    src: 'assets/computer.png',
     label: 'Terminal',
     desc: 'Terminal Açıldı',
     zIndex: 10,
@@ -19,7 +19,7 @@ const ITEMS = [
   },
   {
     id: 'bookshelf',
-    src: '/assets/bookshelf.png',
+    src: 'assets/bookshelf.png',
     label: 'Filmler',
     desc: 'Letterboxd Filmleri',
     zIndex: 11,
@@ -28,7 +28,7 @@ const ITEMS = [
   },
   {
     id: 'speaker',
-    src: '/assets/speaker.png',
+    src: 'assets/speaker.png',
     label: 'Lofi Radyo',
     desc: 'Lofi Radyo (Aç / Kapat)',
     zIndex: 12,
@@ -37,7 +37,7 @@ const ITEMS = [
   },
   {
     id: 'tv',
-    src: '/assets/tv.png',
+    src: 'assets/tv.png',
     label: 'Müzikler',
     desc: 'Favori Müziklerim',
     zIndex: 13,
@@ -46,7 +46,7 @@ const ITEMS = [
   },
   {
     id: 'folders',
-    src: '/assets/folders.png',
+    src: 'assets/folders.png',
     label: 'Projeler',
     desc: 'Projeler ve Çalışmalarım',
     zIndex: 14,
@@ -55,7 +55,7 @@ const ITEMS = [
   },
   {
     id: 'pencilbox',
-    src: '/assets/pencil-box.png',
+    src: 'assets/pencil-box.png',
     label: 'Hakkımda',
     desc: 'Hakkımda / İletişim',
     zIndex: 15,
@@ -214,11 +214,11 @@ const Room = () => {
         </button>
 
         {/* Arka plan */}
-        <img src={isNight ? "/night.png" : "/background.png"} alt="Room Background" className="room-bg" draggable="false" />
+        <img src={isNight ? "night.png" : "background.png"} alt="Room Background" className="room-bg" draggable="false" />
         
         {/* Pencere Manzarası (Gece versiyonunda tüm oda tek görselde olduğu için bunu gündüz gösteriyoruz) */}
         {!isNight && (
-          <img src="/assets/window.png" alt="Window View" className="room-window" draggable="false" />
+          <img src="assets/window.png" alt="Window View" className="room-window" draggable="false" />
         )}
 
         {/* Partiküller: mask-image sayesinde SADECE pencerenin olduğu kısımda görünürler! */}
@@ -284,7 +284,7 @@ const Room = () => {
       {projectsOpen && <Projects onClose={() => setProjectsOpen(false)} />}
       
       {/* Yerel HTML5 Müzik Çalar */}
-      <audio ref={audioRef} src="/assets/lofi-bg.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="assets/lofi-bg.mp3" loop preload="auto" />
     </>
   );
 };
