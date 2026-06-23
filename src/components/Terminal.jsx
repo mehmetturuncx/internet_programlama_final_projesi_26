@@ -62,15 +62,13 @@ const Terminal = ({ onClose }) => {
             <div>
               <pre className="terminal-pre" style={{ fontFamily: "'VT323', monospace", margin: 0, whiteSpace: 'pre-wrap' }}>
 {`> hackathon_26
-  Bir hackathon kapsamında geliştirilen, takım içi yenilikçi bir yazılım projesi çözümü.
+  HSD ve trex tarafından Bursa Uludağ Üniversitesi'nde yapılan ve bize 4.lük getiren projemiz.
 > episodd
   Dizi ve bölümleri takip etmek için geliştirilmiş, kullanıcı dostu bir arayüze sahip takip uygulaması.
-> rebin cli
-  Terminal üzerinden çalışarak geliştirici süreçlerini hızlandıran komut satırı aracı (CLI).
+> rebin_cli
+  Terminal üzerinde çalışan multi-platform bir çöp kutusu uygulaması.
 > internet_programlama_final_projesi_26
-  Retro tarzda interaktif bir dijital oda portfolyo projesi. React ve Vite kullanılarak geliştirildi.
-> ai-chat-bot
-  Yapay zeka entegreli sohbet asistanı (Örnek projedir, detayını bana belirtebilirsiniz).`}
+  Retro tarzda interaktif bir dijital oda portfolyo projesi. React ve Vite kullanılarak geliştirildi.`}
               </pre>
             </div>
           );

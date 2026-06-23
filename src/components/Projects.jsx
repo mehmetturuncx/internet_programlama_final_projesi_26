@@ -1,34 +1,31 @@
 import React, { useEffect } from 'react';
-import { FaFolderOpen, FaGithub, FaTerminal, FaCode, FaRocket, FaStar, FaCodeBranch } from 'react-icons/fa';
+import { FaFolderOpen, FaGithub, FaTerminal, FaCode, FaRocket } from 'react-icons/fa';
 import './Projects.css';
 
 const PROJECTS = [
   {
     id: 'hackathon_26',
     name: 'hackathon_26',
-    desc: 'Bir hackathon kapsamında geliştirilen, takım içi yenilikçi bir yazılım projesi çözümü.',
+    desc: 'HSD ve trex tarafından Bursa Uludağ Üniversitesi\'nde yapılan ve bize 4.lük getiren projemiz.',
     icon: <FaRocket />,
     language: 'Python',
-    color: '#3572A5',
-    stars: 12
+    color: '#3572A5'
   },
   {
     id: 'episodd',
     name: 'episodd',
     desc: 'Dizi ve bölümleri takip etmek için geliştirilmiş, kullanıcı dostu bir arayüze sahip takip uygulaması.',
     icon: <FaCode />,
-    language: 'JavaScript',
-    color: '#f1e05a',
-    stars: 8
+    language: 'Python',
+    color: '#3572A5'
   },
   {
     id: 'rebin-cli',
-    name: 'rebin cli',
-    desc: 'Terminal üzerinden çalışarak geliştirici süreçlerini hızlandıran komut satırı aracı (CLI).',
+    name: 'rebin_cli',
+    desc: 'Terminal üzerinde çalışan multi-platform bir çöp kutusu uygulaması.',
     icon: <FaTerminal />,
-    language: 'Go',
-    color: '#00ADD8',
-    stars: 15
+    language: 'Python',
+    color: '#3572A5'
   },
   {
     id: 'internet_programlama_final_projesi_26',
@@ -36,17 +33,7 @@ const PROJECTS = [
     desc: 'Retro tarzda interaktif bir dijital oda portfolyo projesi. React ve Vite kullanılarak geliştirildi.',
     icon: <FaCode />,
     language: 'JavaScript',
-    color: '#f1e05a',
-    stars: 5
-  },
-  {
-    id: 'ai-chat-bot',
-    name: 'ai-chat-bot',
-    desc: 'Yapay zeka entegreli sohbet asistanı (Örnek projedir, detayını bana belirtebilirsiniz).',
-    icon: <FaTerminal />,
-    language: 'TypeScript',
-    color: '#3178c6',
-    stars: 3
+    color: '#f1e05a'
   }
 ];
 
@@ -88,12 +75,6 @@ const Projects = ({ onClose }) => {
                     {proj.language}
                   </span>
                 )}
-                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <FaStar /> {proj.stars || 0}
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <FaCodeBranch /> 0
-                </span>
               </div>
             </div>
           ))}
