@@ -4,7 +4,7 @@ import './Terminal.css';
 
 const Terminal = ({ onClose }) => {
   const [history, setHistory] = useState([
-    { type: 'system', content: 'Dijital-Botanik OS v2.0 Başlatıldı...' },
+    { type: 'system', content: 'Dijital Oda OS v2.0 Başlatıldı...' },
     { type: 'system', content: 'Komutları görmek için "help" yazabilirsiniz.' }
   ]);
   const [input, setInput] = useState('');
