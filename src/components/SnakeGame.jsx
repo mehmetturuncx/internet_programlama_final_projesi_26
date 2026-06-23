@@ -77,52 +77,63 @@ const SnakeGame = ({ onExit }) => {
     return () => clearInterval(interval);
   }, [gameOver]);
 
-  const handleKeyDown = (e) => {
-    e.preventDefault();
-    if (gameOver) {
-      if (e.key === 'Enter') {
-        snakeRef.current = INITIAL_SNAKE;
-        directionRef.current = INITIAL_DIRECTION;
-        lastProcessedDirectionRef.current = INITIAL_DIRECTION;
-        setScore(0);
-        setGameOver(false);
-        generateFood();
-        setRenderTrigger(v => v + 1);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Sadece ok tuşları, WASD, Enter ve Esc'yi yakala (sayfanın kaymasını engelle)
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape', 'w', 'a', 's', 'd', 'W', 'A', 'S', 'D'].includes(e.key)) {
+        e.preventDefault();
+      } else {
+        return;
       }
-      if (e.key === 'Escape') onExit();
-      return;
-    }
 
-    const lastDir = lastProcessedDirectionRef.current;
+      if (gameOver) {
+        if (e.key === 'Enter') {
+          snakeRef.current = INITIAL_SNAKE;
+          directionRef.current = INITIAL_DIRECTION;
+          lastProcessedDirectionRef.current = INITIAL_DIRECTION;
+          setScore(0);
+          setGameOver(false);
+          generateFood();
+          setRenderTrigger(v => v + 1);
+        }
+        if (e.key === 'Escape') onExit();
+        return;
+      }
 
-    switch (e.key) {
-      case 'ArrowUp':
-      case 'w':
-      case 'W':
-        if (lastDir.y !== 1) directionRef.current = { x: 0, y: -1 };
-        break;
-      case 'ArrowDown':
-      case 's':
-      case 'S':
-        if (lastDir.y !== -1) directionRef.current = { x: 0, y: 1 };
-        break;
-      case 'ArrowLeft':
-      case 'a':
-      case 'A':
-        if (lastDir.x !== 1) directionRef.current = { x: -1, y: 0 };
-        break;
-      case 'ArrowRight':
-      case 'd':
-      case 'D':
-        if (lastDir.x !== -1) directionRef.current = { x: 1, y: 0 };
-        break;
-      case 'Escape':
-        onExit();
-        break;
-      default:
-        break;
-    }
-  };
+      const lastDir = lastProcessedDirectionRef.current;
+
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+          if (lastDir.y !== 1) directionRef.current = { x: 0, y: -1 };
+          break;
+        case 'ArrowDown':
+        case 's':
+        case 'S':
+          if (lastDir.y !== -1) directionRef.current = { x: 0, y: 1 };
+          break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+          if (lastDir.x !== 1) directionRef.current = { x: -1, y: 0 };
+          break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+          if (lastDir.x !== -1) directionRef.current = { x: 1, y: 0 };
+          break;
+        case 'Escape':
+          onExit();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameOver, onExit]);
 
   const snake = snakeRef.current;
   const food = foodRef.current;
@@ -130,10 +141,7 @@ const SnakeGame = ({ onExit }) => {
   return (
     <div 
       className="snake-container" 
-      tabIndex={0} 
-      onKeyDown={handleKeyDown} 
       ref={gameRef}
-      autoFocus
     >
       <div className="snake-header">
         <span>SNAKE</span>
