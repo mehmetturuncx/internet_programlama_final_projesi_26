@@ -4,7 +4,7 @@ import './Terminal.css';
 import SnakeGame from './SnakeGame';
 
 const FILES = ['facts_about_me', 'about_this_project', 'projects'];
-const COMMANDS = ['help', 'ls', 'cat', 'clear', 'play', 'sudo'];
+const COMMANDS = ['help', 'ls', 'cat', 'clear', 'play', 'sudo', 'whoami'];
 
 const Terminal = ({ onClose, onUnlockAchievement, crashed, onCrash }) => {
   const [history, setHistory] = useState([
@@ -76,6 +76,7 @@ const Terminal = ({ onClose, onUnlockAchievement, crashed, onCrash }) => {
             <br />&nbsp;&nbsp;cat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Dosya içeriğini okur (Örn: cat projects)
             <br />&nbsp;&nbsp;clear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Terminal ekranını temizler
             <br />&nbsp;&nbsp;play snake&nbsp;&nbsp;- Yılan oyunu oynatır
+            <br />&nbsp;&nbsp;whoami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Oturum açmış kullanıcıyı gösterir
           </div>
         );
         break;
@@ -131,6 +132,9 @@ const Terminal = ({ onClose, onUnlockAchievement, crashed, onCrash }) => {
       case 'clear':
         setHistory([]);
         return;
+      case 'whoami':
+        response = 'guest';
+        break;
       case 'sudo':
         response = 'sudo: bu komut için yetkiniz yok veya yanlış kullanım.';
         break;

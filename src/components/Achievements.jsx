@@ -32,7 +32,7 @@ const Achievements = ({ onClose, unlocked, achievementsList }) => {
                 </div>
                 <div className="achievement-info">
                   <h3 className="achievement-name">{isUnlocked ? ach.title : '???'}</h3>
-                  <p className="achievement-desc">{isUnlocked ? ach.desc : 'Bu başarımı henüz açmadın.'}</p>
+                  <p className="achievement-desc">{ach.desc}</p>
                 </div>
                 {isUnlocked && <FaCheckCircle style={{ marginLeft: 'auto', color: 'var(--accent)', fontSize: '1.5rem' }} />}
               </div>

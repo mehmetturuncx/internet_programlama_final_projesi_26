@@ -213,10 +213,6 @@
 
 /* ===== GECE/GÜNDÜZ BUTONU ===== */
 .theme-toggle-btn {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  z-index: 100;
   padding: 10px 20px;
   background: var(--border-color);
   border: 4px solid var(--bg-primary);

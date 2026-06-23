@@ -66,11 +66,11 @@ const ITEMS = [
 ];
 
 const ACHIEVEMENTS_LIST = [
-  { id: 'music', title: 'DJ Mehmet', desc: 'Lofi radyoyu açtın.' },
+  { id: 'music', title: 'Yeni nesil ne dinliyor ya?', desc: 'Lofi radyoyu açtın.' },
   { id: 'snake', title: 'Burası Nokia 3310 mu?', desc: 'Terminalde yılan oyunu oynadın.' },
   { id: 'crash', title: 'Pek iyi bir fikir sayılmaz değil mi?', desc: 'Terminali çökerttin.' },
   { id: 'night', title: 'Gece Kuşu', desc: 'Gece modunu aktif ettin.' },
-  { id: 'terminal', title: 'Hackerman', desc: 'Terminali ilk kez açtın.' }
+  { id: 'terminal', title: 'Who Am I?', desc: 'Terminali ilk kez açtın.' }
 ];
 
 let audioCtx = null;
