@@ -90,7 +90,9 @@
   flex-direction: column;
   gap: 0.5rem;
   transition: all 0.1s;
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .project-card:hover {

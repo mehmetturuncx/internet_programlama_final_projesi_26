@@ -59,12 +59,18 @@ const Projects = ({ onClose }) => {
 
         <div className="projects-content">
           {PROJECTS.map((proj) => (
-            <div key={proj.id} className="project-card">
+            <a 
+              key={proj.id} 
+              href={`https://github.com/mehmetturuncx/${proj.name}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="project-card"
+            >
               <h3 className="project-name">
                 <span style={{ color: '#5c6a72' }}>{proj.icon}</span>
-                <a href={`https://github.com/mehmetturuncx/${proj.name}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+                <span style={{ color: 'var(--accent)' }}>
                   {proj.name}
-                </a>
+                </span>
               </h3>
               <p className="project-desc">{proj.desc}</p>
               
@@ -76,7 +82,7 @@ const Projects = ({ onClose }) => {
                   </span>
                 )}
               </div>
-            </div>
+            </a>
           ))}
 
           <div className="projects-footer">
