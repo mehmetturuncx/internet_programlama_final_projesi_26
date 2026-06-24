@@ -13,7 +13,7 @@ const PROJECTS = [
   },
   {
     id: 'episodd',
-    name: 'episodd',
+    name: 'episodd-pyqt5',
     desc: 'Dizi ve bölümleri takip etmek için geliştirilmiş, kullanıcı dostu bir arayüze sahip takip uygulaması.',
     icon: <FaCode />,
     language: 'Python',
@@ -21,7 +21,7 @@ const PROJECTS = [
   },
   {
     id: 'rebin-cli',
-    name: 'rebin_cli',
+    name: 'rebin',
     desc: 'Terminal üzerinde çalışan multi-platform bir çöp kutusu uygulaması.',
     icon: <FaTerminal />,
     language: 'Python',
@@ -59,8 +59,8 @@ const Projects = ({ onClose }) => {
 
         <div className="projects-content">
           {PROJECTS.map((proj) => (
-            <div 
-              key={proj.id} 
+            <div
+              key={proj.id}
               className="project-card"
               onClick={() => window.open(`https://github.com/mehmetturuncx/${proj.name}`, '_blank', 'noopener,noreferrer')}
             >
@@ -71,7 +71,7 @@ const Projects = ({ onClose }) => {
                 </span>
               </h3>
               <p className="project-desc">{proj.desc}</p>
-              
+
               <div className="project-meta" style={{ display: 'flex', gap: '15px', marginTop: '10px', fontSize: '1.4rem', color: 'var(--text-secondary)' }}>
                 {proj.language && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
@@ -84,10 +84,10 @@ const Projects = ({ onClose }) => {
           ))}
 
           <div className="projects-footer">
-            <a 
-              href="https://github.com/mehmetturuncx" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://github.com/mehmetturuncx"
+              target="_blank"
+              rel="noopener noreferrer"
               className="github-link-btn"
             >
               <FaGithub /> Tüm Projeler İçin GitHub
