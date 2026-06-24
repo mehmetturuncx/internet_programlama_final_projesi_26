@@ -59,12 +59,10 @@ const Projects = ({ onClose }) => {
 
         <div className="projects-content">
           {PROJECTS.map((proj) => (
-            <a 
+            <div 
               key={proj.id} 
-              href={`https://github.com/mehmetturuncx/${proj.name}`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
               className="project-card"
+              onClick={() => window.open(`https://github.com/mehmetturuncx/${proj.name}`, '_blank', 'noopener,noreferrer')}
             >
               <h3 className="project-name">
                 <span style={{ color: '#5c6a72' }}>{proj.icon}</span>
@@ -82,7 +80,7 @@ const Projects = ({ onClose }) => {
                   </span>
                 )}
               </div>
-            </a>
+            </div>
           ))}
 
           <div className="projects-footer">
